@@ -9,6 +9,7 @@ namespace Final_Game
         
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private KeyboardState oldState;
 
         Texture2D playerTexture;
         Rectangle playerRect;
@@ -48,19 +49,27 @@ namespace Final_Game
                 Exit();
 
             // TODO: Add your update logic here
-            if (state.IsKeyDown(Keys.Left))
+            KeyboardState newState = Keyboard.GetState();
+            if (oldState.IsKeyUp(Keys.Up) && newState.IsKeyDown(Keys.Up))
             {
-                playerRect.X -= 3;
+                playerRect.Y -= 10;
                 playerTexture = Content.Load<Texture2D>("Player running");
-
             }
+            oldState = newState;
             if (state.IsKeyDown(Keys.Right))
             {
                 playerRect.X += 3;
                 playerTexture = Content.Load<Texture2D>("Player running");
 
             }
+            if (state.IsKeyDown(Keys.Left))
+            {
+                playerRect.X -= 3;
+                playerTexture = Content.Load<Texture2D>("Player running");
+
+            }
             
+
 
             base.Update(gameTime);
         }
